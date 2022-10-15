@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_224541) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_224847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_224541) do
     t.string "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stop_station_id", null: false
+    t.index ["stop_station_id"], name: "index_stop_times_on_stop_station_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -104,4 +106,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_224541) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "near_places", "places"
   add_foreign_key "stop_stations", "routes"
+  add_foreign_key "stop_times", "stop_stations"
 end

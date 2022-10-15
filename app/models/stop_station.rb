@@ -1,0 +1,2 @@
+class StopStation < ApplicationRecord
+end

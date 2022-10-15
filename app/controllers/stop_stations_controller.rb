@@ -1,0 +1,2 @@
+class StopStationsController < ApplicationController
+end

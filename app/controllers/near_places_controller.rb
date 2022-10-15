@@ -1,0 +1,2 @@
+class NearPlacesController < ApplicationController
+end

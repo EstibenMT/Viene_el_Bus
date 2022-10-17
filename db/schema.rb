@@ -42,6 +42,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_174113) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "near_places", force: :cascade do |t|
     t.bigint "place_id", null: false
     t.datetime "created_at", null: false

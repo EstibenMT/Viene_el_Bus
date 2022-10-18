@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_174113) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_225120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,11 +42,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_174113) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "near_places", force: :cascade do |t|
     t.bigint "place_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stop_station_id", null: false
     t.index ["place_id"], name: "index_near_places_on_place_id"
+    t.index ["stop_station_id"], name: "index_near_places_on_stop_station_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -73,12 +80,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_174113) do
     t.integer "next_station"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "route_id", null: false
+    t.index ["route_id"], name: "index_stop_stations_on_route_id"
   end
 
   create_table "stop_times", force: :cascade do |t|
     t.string "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stop_station_id", null: false
+    t.index ["stop_station_id"], name: "index_stop_times_on_stop_station_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,4 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_174113) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "near_places", "places"
+  add_foreign_key "near_places", "stop_stations"
+  add_foreign_key "stop_stations", "routes"
+  add_foreign_key "stop_times", "stop_stations"
 end

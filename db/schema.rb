@@ -55,7 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
     t.bigint "place_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stop_station_id", null: false
     t.index ["place_id"], name: "index_near_places_on_place_id"
+    t.index ["stop_station_id"], name: "index_near_places_on_stop_station_id"
   end
 
   create_table "places", force: :cascade do |t|
@@ -89,12 +91,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
     t.integer "next_station"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "route_id", null: false
+    t.index ["route_id"], name: "index_stop_stations_on_route_id"
   end
 
   create_table "stop_times", force: :cascade do |t|
     t.string "hour"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stop_station_id", null: false
+    t.index ["stop_station_id"], name: "index_stop_times_on_stop_station_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,4 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
   add_foreign_key "favorites", "routes"
   add_foreign_key "favorites", "users"
   add_foreign_key "near_places", "places"
+  add_foreign_key "near_places", "stop_stations"
+  add_foreign_key "stop_stations", "routes"
+  add_foreign_key "stop_times", "stop_stations"
 end

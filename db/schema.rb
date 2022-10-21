@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_21_015415) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,17 +63,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "longitude"
-    t.string "latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "reviews", force: :cascade do |t|
-    t.integer "rating"
-    t.string "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float "longitude"
+    t.float "latitude"
+    t.string "address"
+    t.string "city"
+    t.string "department"
+    t.string "country"
   end
 
   create_table "routes", force: :cascade do |t|
@@ -85,13 +82,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_224937) do
 
   create_table "stop_stations", force: :cascade do |t|
     t.string "station_name"
-    t.string "longitude"
-    t.string "latitude"
     t.integer "previous_station"
     t.integer "next_station"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "route_id", null: false
+    t.float "longitude"
+    t.float "latitude"
+    t.string "address"
+    t.string "city"
+    t.string "department"
+    t.string "country"
     t.index ["route_id"], name: "index_stop_stations_on_route_id"
   end
 

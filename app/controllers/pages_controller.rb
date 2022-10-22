@@ -2,11 +2,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
-    if params[:query].present?
-      @stop_stations = StopStation.search_by_routes(params[:query])
-    else
-      @stop_stations = StopStation.all
-    end
+    @stop_stations = StopStation.all
     marks(@stop_stations)
   end
 
@@ -21,8 +17,3 @@ class PagesController < ApplicationController
     end
   end
 end
-#  if hay_busqueda
-#   marjkers = hay_busqueda
-#  else
-#   marjkers = [latitude, longitude]Medellin
-#  end

@@ -1,1 +1,5 @@
-<%= render "shared/map" %>
+<div id='map' class = "map"
+data-controller="map-home"
+data-map-home-api-key-value="<%=ENV['MAPBOX_API_KEY']%>"
+data-map-home-markers-value="<%= @markers.to_json %>"
+></div>

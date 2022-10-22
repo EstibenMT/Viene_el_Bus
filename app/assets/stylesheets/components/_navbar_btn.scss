@@ -1,0 +1,36 @@
+.navbar-btn-white {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  border: 2px solid var(--white);
+  padding: 8px 16px;
+  height: 44px;
+  color: var(--white);
+  font-size: 700;
+  text-decoration: none;
+  background-color: var(--white);
+  color: var(--black);
+  border-radius: 5px;
+  margin-left: 10px;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.5s; background: 0.5s;
+}
+
+
+.navbar-btn-white.br{
+  background-color: transparent;
+  color: var(--white);
+}
+
+
+.navbar-btn-white:hover{
+  color: var(--white);
+  background-color: transparent;
+}
+
+
+.navbar-btn-white.br:hover{
+  color: var(--black);
+  background-color: var(--white);
+}

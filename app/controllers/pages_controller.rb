@@ -3,7 +3,13 @@ class PagesController < ApplicationController
 
   def home
     @stop_stations = StopStation.all
-    @markers = @stop_stations.geocoded.map do |stop_station|
+    marks(@stop_stations)
+  end
+
+  private
+
+  def marks(stop_stations)
+    @markers = stop_stations.geocoded.map do |stop_station|
       {
         latitude: stop_station.latitude,
         longitude: stop_station.longitude
@@ -11,9 +17,3 @@ class PagesController < ApplicationController
     end
   end
 end
-
-#  if hay_busqueda
-#   marjkers = hay_busqueda
-#  else
-#   marjkers = [latitude, longitude]Medellin
-#  end

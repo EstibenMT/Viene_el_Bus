@@ -10,7 +10,7 @@ require "rest-client"
 require "json"
 
 # obtener la información de las paradas
-# la información esta guardad así para cada parada, ejemplo:
+# la información esta guardada así para cada parada, ejemplo:
 # "features": [
 #   {
 #       "attributes": {
@@ -44,7 +44,7 @@ require "json"
 #   },
 response_paradas = RestClient.get("https://services1.arcgis.com/FZVaYraI7sEGQ6rF/arcgis/rest/services/movilidad_gdb/FeatureServer/8/query?where=1%3D1&outFields=*&outSR=4326&f=json")
 
-result_paradas = JSON.parse(response_paradas.to_str) # Es un hash que pasamos a str
+result_paradas = JSON.parse(response_paradas) # Es un hash
 
 # Obtener la informacion de las rutas
 # la información esta guardad así para cada ruta, ejemplo:
@@ -66,8 +66,8 @@ result_paradas = JSON.parse(response_paradas.to_str) # Es un hash que pasamos a 
 #                     "paths": [
 #                                 [
 #                                     [
-#                                       -75.6196790996806,
-#                                         6.28014000004954
+#                                       -75.6196790996806, <- longitud
+#                                         6.28014000004954 <- latitud
 #                                     ],
 #                                     [
 #                                         ...,
@@ -92,4 +92,37 @@ result_paradas = JSON.parse(response_paradas.to_str) # Es un hash que pasamos a 
 
 response_rutas = RestClient.get("https://services1.arcgis.com/FZVaYraI7sEGQ6rF/arcgis/rest/services/movilidad_gdb/FeatureServer/10/query?where=1%3D1&outFields=*&outSR=4326&f=json")
 
-result_rutas = JSON.parse(response_rutas.to_str) # Es un hash que pasamos a str
+result_rutas = JSON.parse(response_rutas) # Es un hash
+
+
+# Se filtra y guarda la info que necesitamos (ID_RUTA, )
+# De paradas, necesitamos ingresar al hash > features que es un array de hashes
+info_paradas = result_paradas["features"]
+
+
+# Se filtra y guarda la info que necesitamos
+# De rutas, necesitamos ingresar al hash > features que es un array de hashes
+info_rutas = result_rutas["features"]
+
+
+info_rutas.each do |route|
+  data = route["attributes"] # hash
+  #geometry = info_rutas[i]["geometry"]["paths"]
+  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"])
+  puts "ruta #{ruta.id} was created"
+  ref_point = route["geometry"]["paths"]
+  ref_point.each do |array|
+    array.each do |point|
+      spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
+      puts "the spot #{spot.id} was crated"
+    end
+  end
+end
+
+info_paradas.each do |stop|
+  id_route = stop["attributes"]["ID_RUTA"]
+  #stop["attributes"] = info_paradas[i]["attributes"] # hash
+  stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["attributes"]["LONGITUD"], latitude: stop["attributes"]["LATITUD"], route_id: Route.find_by(id_route: id_route).id, route_code:"CODIGO_RUTA", city: "Medellin", department: "Antioquia", country: "Colombia", address: "DIRECCION")
+  puts "stop #{stop_st.id} was created"
+  #i += 1
+end

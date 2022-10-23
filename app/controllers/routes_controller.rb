@@ -18,6 +18,7 @@ class RoutesController < ApplicationController
         latitude: stop_station.latitude,
         longitude: stop_station.longitude
       }
+
     end
   end
 end

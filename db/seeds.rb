@@ -8,6 +8,7 @@
 
 require "rest-client"
 require "json"
+# require "byebug"
 
 # obtener la información de las paradas
 # la información esta guardada así para cada parada, ejemplo:
@@ -107,22 +108,19 @@ info_rutas = result_rutas["features"]
 
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  #geometry = info_rutas[i]["geometry"]["paths"]
   ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"])
   puts "ruta #{ruta.id} was created"
   ref_point = route["geometry"]["paths"]
   ref_point.each do |array|
     array.each do |point|
       spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
-      puts "the spot #{spot.id} was crated"
+      puts "the spot #{spot.id} was created"
     end
   end
 end
 
 info_paradas.each do |stop|
   id_route = stop["attributes"]["ID_RUTA"]
-  #stop["attributes"] = info_paradas[i]["attributes"] # hash
-  stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["attributes"]["LONGITUD"], latitude: stop["attributes"]["LATITUD"], route_id: Route.find_by(id_route: id_route).id, route_code:"CODIGO_RUTA", city: "Medellin", department: "Antioquia", country: "Colombia", address: "DIRECCION")
-  puts "stop #{stop_st.id} was created"
-  #i += 1
+  stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["geometry"]["x"], latitude: stop["geometry"]["y"], route_id: Route.find_by(id_route: id_route).id, route_code: stop["attributes"]["CODIGO_RUTA"], city: "Medellin", department: "Antioquia", country: "Colombia", address: stop["attributes"]["DIRECCION"])
+  puts "stop #{stop_st.id} was created" # with latitude #{stop_st.latitude} and longitude #{stop_st.longitude}"
 end

@@ -1,9 +1,9 @@
-<% @stop_stations.each do |station|%> <% # borre el = al inicio de la linea para que las instancias no sean visibles %>
+<% @stop_stations.each do |station|%> <%# borre el = al inicio de la linea para que las instancias no sean visibles %>
   <h3><%= station.station_name %></h3>
   <h3><%= station.route_id %></h3>
   <h3><%= station.latitude %></h3>
   <h3><%= station.longitude %></h3>
-
+  <a href="<%#link to favorites create %>" class = "btn btn-success"> 💙 add to favorites </a>
 <% end %>
 
 <div id='map' class = "map"

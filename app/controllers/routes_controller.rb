@@ -10,6 +10,10 @@ class RoutesController < ApplicationController
     marks(@stop_stations)
   end
 
+  def show
+    @route = Route.find(params[:id])
+  end
+
   private
 
   def marks(stop_stations)

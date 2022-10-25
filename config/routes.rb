@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   resources :routes, only: [:show, :index] do
     resources :stop_stations, only: :index
     # agrego las rutas de favorites dentro de routes
-    resources :favorites, only: [:index, :show, :create, :delete]
+    resources :favorites, only: [:show, :create]
   end
+  resources :favorites, only: [:delete, :index]
   # Defines the root path route ("/")
   # root "articles#index"
 end

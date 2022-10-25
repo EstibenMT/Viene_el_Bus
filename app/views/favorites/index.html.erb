@@ -1,0 +1,26 @@
+<div class="container m-4 p-3">
+  <%= link_to "🚌 volver al inicio", root_path, class: "btn btn-warning shadow-sm rounded" %>
+  <div class="row p-2 mx-auto">
+
+    <% @favorites.each do |favorite| %>
+
+      <div class="col-6 m-1 mx-auto">
+
+        <div class="card rounded">
+
+          <div class="card-body">
+
+            <p> <%= favorite.route.name %> </p>
+            <p> <%= favorite.route.price %> </p>
+            <p> <%= favorite.route.code %> </p>
+            <a href=" <% "/routes/#{favorite.route_id}" %> " class="stretched-link"></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

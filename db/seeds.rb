@@ -106,7 +106,7 @@ info_paradas = result_paradas["features"]
 info_rutas = result_rutas["features"]
 
 
-Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567)
+Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567, address: "Medellín")
 
 info_rutas.each do |route|
   data = route["attributes"] # hash

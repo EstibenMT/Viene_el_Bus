@@ -4,4 +4,10 @@ class Route < ApplicationRecord
   has_many :reviews
   has_many :spots
 
+  include PgSearch::Model
+  pg_search_scope :search_by_routes,
+    against: [ :name, :code ],
+    using: {
+      tsearch: { prefix: true }
+    }
 end

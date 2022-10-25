@@ -12,3 +12,6 @@ application.register("map", MapController)
 
 import MapHomeController from "./map_home_controller"
 application.register("map-home", MapHomeController)
+
+import SearchRouteController from "./search_route_controller"
+application.register("search-route", SearchRouteController)

@@ -1,7 +1,22 @@
 <%= render "shared/map" %>
-<% @stop_stations.each do |station|%> <%# borre el = al inicio de la linea para que las instancias no sean visibles %>
-  <h3><%= station.station_name %></h3>
-  <h3><%= station.route_id %></h3>
-  <h3><%= station.latitude %></h3>
-  <h3><%= station.longitude %></h3>
-<% end %>
+<div id = 'list-routes'>
+  <p class= "h3">
+    <% if params[:query].blank? %>
+      <%= pluralize @routes.count, "route" %> available
+    <% else %>
+      <%= pluralize @routes.count, "result" %> for <code><%= params[:query] %></code>
+    <% end %>
+  </p>
+
+  <div class="mt-4">
+    <div class="row gy-3">
+      <% @routes.each do |route| %>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <%= link_to route_path(route), class: "car-link" do%>
+            <%= render "shared/cards_route", route: route  %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

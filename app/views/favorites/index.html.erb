@@ -13,7 +13,10 @@
             <p> <%= favorite.route.name %> </p>
             <p> <%= favorite.route.price %> </p>
             <p> <%= favorite.route.code %> </p>
-            <a href=" <% link_to "/routes/#{favorite.route_id}" %> " class="btn btn-dark stretched-link"> 📍 Ir a esta Ruta</a>
+            <div class="d-flex justify-content-between">
+              <a href=" <% link_to "/routes/#{favorite.route_id}" %> " class="btn btn-dark"> 📍 Ir a esta Ruta</a>
+              <%= link_to "🗑 Borrar", favorites_path(favorite), method: :delete, data: { confirm: 'Esta seguro?' } %>
+            </div>
           </div>
 
         </div>

@@ -1,3 +1,5 @@
+
+
 <div class="container m-4 p-3">
   <%= link_to "🚌 volver al inicio", root_path, class: "btn btn-dark shadow-sm rounded" %>
   <div class="row p-2 mx-auto">
@@ -14,8 +16,8 @@
             <p> <%= favorite.route.price %> </p>
             <p> <%= favorite.route.code %> </p>
             <div class="d-flex justify-content-between">
-              <a href=" <% link_to "/routes/#{favorite.route_id}" %> " class="btn btn-dark"> 📍 Ir a esta Ruta</a>
-              <%= link_to "🗑 Borrar", favorites_path(favorite), method: :delete, data: { confirm: 'Esta seguro?' } %>
+              <%= link_to "📍 Ir a esta Ruta", route_path(favorite.route_id), class:"btn btn-dark" %>
+              <%= link_to "🗑 Borrar", favorite_path(favorite), method: :delete, data: { turbo_method: :delete, turbo_confirm: '¿Está seguro?' } %>
             </div>
           </div>
 
@@ -24,6 +26,5 @@
       </div>
 
     <% end %>
-
   </div>
 </div>

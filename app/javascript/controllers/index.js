@@ -6,12 +6,3 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-
-import MapController from "./map_controller"
-application.register("map", MapController)
-
-import MapHomeController from "./map_home_controller"
-application.register("map-home", MapHomeController)
-
-import SearchRouteController from "./search_route_controller"
-application.register("search-route", SearchRouteController)

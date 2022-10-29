@@ -108,17 +108,29 @@ info_rutas = result_rutas["features"]
 
 Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567, address: "Medellín")
 
+prices = [3500, 2550, 7250, 2700, 2350, 9000, 8550]
+
+images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%20el%20bus/pexels-will-mu-3802736_ybfw2r.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016292/Viene%20el%20bus/muchos-2_sqfdlj.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/school_little_hsuf43.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/chiva-little_fwlpjg.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/school_little2_wzomr7.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/metroplus-little_olelkq.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/demtro-2_vmklu1.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/principal-little_zesq2n.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016290/Viene%20el%20bus/muchos-little_pz9kju.jpg"]
+
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"])
+  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample)
   puts "ruta #{ruta.id} was created"
-  ref_point = route["geometry"]["paths"]
-  ref_point.each do |array|
-    array.each do |point|
-      spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
-      puts "the spot #{spot.id} was created"
-    end
-  end
+  # ref_point = route["geometry"]["paths"]
+  # ref_point.each do |array|
+  #   array.each do |point|
+  #     spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
+  #     puts "the spot #{spot.id} was created"
+  #   end
+  # end
 end
 
 info_paradas.each do |stop|

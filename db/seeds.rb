@@ -8,7 +8,7 @@
 
 require "rest-client"
 require "json"
-# require "byebug"
+require "byebug"
 
 # obtener la información de las paradas
 # la información esta guardada así para cada parada, ejemplo:
@@ -108,8 +108,10 @@ info_rutas = result_rutas["features"]
 
 Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567, address: "Medellín")
 
-prices = [3500, 2550, 7250, 2700, 2350, 9000, 8550]
+# Se crea un array de precios para darle a cada ruta un precio aleatoriamente, simulando el precio de la ruta
+prices = [2200, 2550, 1400, 2700, 2350, 2900, 3600, 3200, 8550]
 
+# Array de Imagenes, para asignar aleatoriamente a la ruta
 images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%20el%20bus/pexels-will-mu-3802736_ybfw2r.jpg",
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667016292/Viene%20el%20bus/muchos-2_sqfdlj.jpg",
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/school_little_hsuf43.jpg",
@@ -118,20 +120,48 @@ images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%2
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/metroplus-little_olelkq.jpg",
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/demtro-2_vmklu1.jpg",
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/principal-little_zesq2n.jpg",
-"https://res.cloudinary.com/dqij49pio/image/upload/v1667016290/Viene%20el%20bus/muchos-little_pz9kju.jpg"]
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016290/Viene%20el%20bus/muchos-little_pz9kju.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/me-bus-3_f8xamj.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-6_mixjla.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/mde-bus-1_ob8hww.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-5_mvots4.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-4_mvaf5b.jpg"]
+
+# Array de horarios de inicio de circulación
+start_hour = ["5:00", "7:30"]
+
+# Array de horarios de finalización de circulación
+end_hour = ["18:00", "22:30"]
+
+# Paso del tiempo, simulando
+time_pass = [15, 30]
 
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample)
-  puts "ruta #{ruta.id} was created"
-  # ref_point = route["geometry"]["paths"]
-  # ref_point.each do |array|
-  #   array.each do |point|
-  #     spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
-  #     puts "the spot #{spot.id} was created"
-  #   end
-  # end
+  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour.sample, end_hour: end_hour.sample)
+  # puts "ruta #{ruta.id} was created"
+  ref_point = route["geometry"]["paths"]
+  ref_point.each do |array|
+    array.each do |point|
+      Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
+      # puts "the spot #{spot.id} was created"
+    end
+  end
+
+  start_h = start_hour.sample.to_time - (5*60*60)
+  end_h = end_hour.sample.to_time
+  time = start_h
+  pas_time = time_pass.sample
+
+
+  while time < end_h
+    Hour.create(hour: time, route: ruta)
+    time += (pas_time*60)
+  end
+
 end
+
+puts "routes were created"
 
 info_paradas.each do |stop|
   id_route = stop["attributes"]["ID_RUTA"]

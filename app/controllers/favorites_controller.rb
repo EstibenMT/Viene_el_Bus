@@ -2,6 +2,7 @@ class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:destroy, :show]
   before_action :set_user, only: [:index, :create]
   before_action :set_route, only: [:indedx, :create]
+  before_action :set_time, only: [:index]
 
   def index
     @favorites = Favorite.all
@@ -10,12 +11,6 @@ class FavoritesController < ApplicationController
   def show
     @favorite = Favorite.find(params[:id])
   end
-
-  # def create
-  #   ruta_id = params[:route_id]
-  #   @favorite = Favorite.new(route_id: ruta_id, user_id: current_user.id)
-  #   @favorite.save!
-  # end
 
   def create
     @favorite = Favorite.new(user_id: current_user.id, route_id: @route.id)
@@ -50,5 +45,9 @@ class FavoritesController < ApplicationController
 
   def set_route
     @route = Route.find(params[:route_id])
+  end
+
+  def set_time
+    @time = Time.now
   end
 end

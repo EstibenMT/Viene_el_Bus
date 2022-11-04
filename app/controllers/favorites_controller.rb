@@ -18,10 +18,10 @@ class FavoritesController < ApplicationController
   # end
 
   def create
-    @favorite = Favorite.new(user_id: current_user.id, route_id: @route.id)
-    # @favorite.route = @route
-    # @favorite.user = @user
-    if @favorite.save
+    @favorite = Favorite.new
+    @favorite.route = @route
+    @favorite.user = current_user
+    if @favorite.save!
       redirect_to favorites_path
     else
       render 'routes/show', status: :unprocessable_entity

@@ -17,6 +17,12 @@ class RoutesController < ApplicationController
 
   def show
     marks(@stop_stations)
+    if user_signed_in?
+      @mark_favourite = Favorite.where(user_id: current_user.id, route_id: @route.id)
+    else
+      @mark_favourites = []
+      @mark_favourites << Favorite.new
+    end
   end
 
   private

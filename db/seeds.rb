@@ -95,11 +95,9 @@ response_rutas = RestClient.get("https://services1.arcgis.com/FZVaYraI7sEGQ6rF/a
 
 result_rutas = JSON.parse(response_rutas) # Es un hash
 
-
-# Se filtra y guarda la info que necesitamos (ID_RUTA, )
+# Se filtra y guarda la info que necesitamos
 # De paradas, necesitamos ingresar al hash > features que es un array de hashes
 info_paradas = result_paradas["features"]
-
 
 # Se filtra y guarda la info que necesitamos
 # De rutas, necesitamos ingresar al hash > features que es un array de hashes
@@ -127,38 +125,52 @@ images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%2
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-5_mvots4.jpg",
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-4_mvaf5b.jpg"]
 
-# Array de horarios de inicio de circulación
-start_hour = ["5:00", "7:30"]
+# # se crean las horas en las que funciona la ruta en strings para mostrar
+# start_hour_str = "5:00"
+# end_hour_str = "22:00"
 
-# Array de horarios de finalización de circulación
-end_hour = ["18:00", "22:30"]
-
-# Paso del tiempo, simulando
-time_pass = [15, 30]
+# # representa el paso del tiempo
+# pas_time_30_min = 1800
 
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour.sample, end_hour: end_hour.sample)
+  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour_str, end_hour: end_hour_str)
   # puts "ruta #{ruta.id} was created"
-  ref_point = route["geometry"]["paths"]
-  ref_point.each do |array|
-    array.each do |point|
-      Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
-      # puts "the spot #{spot.id} was created"
-    end
-  end
-
-  start_h = start_hour.sample.to_time - (5*60*60)
-  end_h = end_hour.sample.to_time
-  time = start_h
-  pas_time = time_pass.sample
+  # ref_point = route["geometry"]["paths"]
+  # ref_point.each do |array|
+  #   array.each do |point|
+  #     Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
+  #     # puts "the spot #{spot.id} was created"
+  #   end
+  # end
 
 
-  while time < end_h
-    Hour.create(hour: time, route: ruta)
-    time += (pas_time*60)
-  end
+  # -----
+  # start_h = DateTime.parse(start_hour.sample).strftime('%I:%M %p')
+  # end_h = DateTime.parse(end_hour.sample).strftime('%I:%M %p')
+  # end_time = end_h
+  # time = start_h
+  # pas_time = time_pass.sample
+  # ------
 
+  # variables que representan las horas de inicio y final en tipo time
+  # start_h = start_hour_str.to_time # time
+  # end_h = end_hour_str.to_time # time
+
+  # # variable que se usara para crear las intancias de la clase hour
+  # hour = start_h # time
+
+  # # variables que sirven de contadores
+  # end_hour = 34 # integers
+  # count_hour = 0 # integers
+
+  # until count_hour == end_hour
+
+  #   Hour.create(hour: hour, route: ruta)
+  #   hour += pas_time_30_min
+  #   count_hour += 1
+
+  # end
 end
 
 puts "routes were created"

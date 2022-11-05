@@ -15,13 +15,24 @@
             <p> <%= "$#{route.price}" %> </p>
             <p> <%= route.code %> </p>
             <p> <%= "⏱ Active between: #{route.start_hour} - #{route.end_hour}"%> </p>
-                <%= "next bus will pass on: #{hours[@hour_id].hour}, #{hours[@hour_id + 1].hour}"  %>
-                <%  %>
 
+
+              <% hour = Time.now.hour %>
+              <% min = Time.now.min %>
+              <% if 30 < min %>
+                <% hour += 1 %>
+                <% first = "#{hour}:00" %>
+                <% second = "#{hour}:30" %>
+              <% else %>
+                <% first = "#{hour}:30"  %>
+                <% second = "#{hour + 1}:00" %>
+              <% end %>
+
+            <p>  <%= "the next bus will come by on: #{first}, #{second} " %> </p>
 
             <div class="d-flex justify-content-between">
-              <%= link_to "📍 Ir a esta Ruta", route_path(favorite.route_id), class:"btn btn-dark rounded-5" %>
               <%= link_to "🗑 Borrar", favorite_path(favorite), method: :delete, data: { turbo_method: :delete, turbo_confirm: '¿Está seguro?' } %>
+              <%= link_to "📍 Ir a esta Ruta", route_path(favorite.route_id), class:"btn btn-dark rounded-5" %>
             </div>
           </div>
 

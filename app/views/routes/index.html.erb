@@ -1,22 +1,39 @@
-<%= render "shared/map" %>
-<div id = 'list-routes'>
-  <p class= "h3">
-    <% if params[:query].blank? %>
-      <%= pluralize @routes.count, "route" %> available
-    <% else %>
-      <%= pluralize @routes.count, "result" %> for <code><%= params[:query] %></code>
-    <% end %>
-  </p>
+<div>
 
-  <div class="mt-4">
-    <div class="row gy-3">
-      <% @routes.each do |route| %>
-        <div class="col-sm-12 col-md-6 col-lg-4">
-          <%= link_to route_path(route), class: "car-link" do%>
-            <%= render "shared/cards_route", route: route  %>
+  <div data-controller = "lateral-menu" class="lateral__menu d-flex">
+    <div class="menu__side"
+      data-lateral-menu-target = "menu"
+      id="menu_side">
+      <div id = 'list-routes'>
+        <p class= "h3">
+          <% if params[:query].blank? %>
+            <%= pluralize @routes.count, "Resultados" %> obtenidos
+          <% else %>
+              <%= pluralize @routes.count , "result" %> for <code><%= params[:query] %></code>
           <% end %>
+        </p>
+        <div class="mt-4">
+          <div class="">
+            <% @routes.each do |route| %>
+              <div class="">
+                  <%= link_to route_path(route), class:"car-link" do%>
+                    <%= render "shared/cards_route", route:route  %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      <% end %>
+      </div>
+
     </div>
+    <div class = "icon__menu" data-lateral-menu-target ="close"
+    id = "close"
+    data-action = "click->lateral-menu#openCloseMenu">
+      <i class="fa-solid fa-caret-left "></i>
+    </div>
+
+  </div>
+  <div class="">
+    <%= render "shared/map"%>
   </div>
 </div>

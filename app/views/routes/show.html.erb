@@ -1,2 +1,34 @@
-<%= link_to "💙 añadir a favorites", route_favorites_path(@route), data: {turbo_method: :post}, class: "btn btn-success" %>
-<%= render "shared/map_query" %>
+<div>
+  <div data-controller = "lateral-menu" class="lateral__menu d-flex">
+    <div class="menu__side"
+      data-lateral-menu-target = "menu"
+      id="menu_side">
+      <%= @route.name %>
+
+      <% if user_signed_in? %>
+          <% if @mark_favourite.present?%>
+            <i class="fa-solid fa-heart"></i>
+          <% else %>
+            <%= link_to route_favorites_path(@route), data: {turbo_method: :post} do%>
+              <i class="fa-regular fa-heart"></i>
+            <% end %>
+          <% end %>
+
+      <% else %>
+        <%= link_to new_user_session_path do%>
+          <i class="fa-regular fa-heart"></i>
+        <% end %>
+      <% end %>
+
+    </div>
+    <div class = "icon__menu" data-lateral-menu-target ="close"
+    id = "close"
+    data-action = "click->lateral-menu#openCloseMenu">
+      <i class="fa-solid fa-caret-left "></i>
+    </div>
+
+  </div>
+  <div class="">
+    <%= render "shared/map_query" %>
+  </div>
+</div>

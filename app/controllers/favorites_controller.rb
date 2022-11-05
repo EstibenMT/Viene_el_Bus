@@ -11,12 +11,6 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.find(params[:id])
   end
 
-  # def create
-  #   ruta_id = params[:route_id]
-  #   @favorite = Favorite.new(route_id: ruta_id, user_id: current_user.id)
-  #   @favorite.save!
-  # end
-
   def create
     @favorite = Favorite.new
     @favorite.mark_favourite = true

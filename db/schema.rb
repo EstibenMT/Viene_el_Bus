@@ -52,6 +52,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_122816) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "hours", force: :cascade do |t|
+    t.time "hour"
+    t.bigint "route_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["route_id"], name: "index_hours_on_route_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.float "latitude"
@@ -90,6 +98,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_122816) do
     t.datetime "updated_at", null: false
     t.string "code"
     t.string "id_route"
+    t.string "image"
+    t.string "start_hour"
+    t.string "end_hour"
   end
 
   create_table "spots", force: :cascade do |t|
@@ -142,6 +153,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_122816) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorites", "routes"
   add_foreign_key "favorites", "users"
+  add_foreign_key "hours", "routes"
   add_foreign_key "near_places", "places"
   add_foreign_key "near_places", "stop_stations"
   add_foreign_key "spots", "routes"

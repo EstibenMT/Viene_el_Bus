@@ -19,6 +19,7 @@ class FavoritesController < ApplicationController
 
   def create
     @favorite = Favorite.new
+    @favorite.mark_favourite = true
     @favorite.route = @route
     @favorite.user = current_user
     if @favorite.save!

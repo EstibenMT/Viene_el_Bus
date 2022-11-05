@@ -7,9 +7,9 @@
       <div id = 'list-routes'>
         <p class= "h3">
           <% if params[:query].blank? %>
-            <%= pluralize @routes.count, "route" %> available
+            <%= pluralize @routes.count, "Resultados" %> obtenidos
           <% else %>
-              <%= pluralize @routes.count , "result" %> for<code><%= params[:query] %></code>
+              <%= pluralize @routes.count , "result" %> for <code><%= params[:query] %></code>
           <% end %>
         </p>
         <div class="mt-4">

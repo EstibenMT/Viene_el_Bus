@@ -3,10 +3,21 @@
     <div class="menu__side"
       data-lateral-menu-target = "menu"
       id="menu_side">
+      <%= @route.name %>
+
       <% if user_signed_in? %>
-        <%= link_to "💙 añadir a favorites", route_favorites_path(@route), data: {turbo_method: :post}, class: "btn btn-success" %>
+          <% if @mark_favourite.present?%>
+            <i class="fa-solid fa-heart"></i>
+          <% else %>
+            <%= link_to route_favorites_path(@route), data: {turbo_method: :post} do%>
+              <i class="fa-regular fa-heart"></i>
+            <% end %>
+          <% end %>
+
       <% else %>
-        <%= link_to "💙 añadir a favorites", new_user_session_path, class: "btn btn-success"%>
+        <%= link_to new_user_session_path do%>
+          <i class="fa-regular fa-heart"></i>
+        <% end %>
       <% end %>
 
     </div>

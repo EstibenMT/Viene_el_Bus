@@ -5,14 +5,16 @@
       data-lateral-menu-target = "menu"
       id="menu_side">
       <div id = 'list-routes'>
-        <p class= "h3">
-          <% if params[:query].blank? %>
-            <%= pluralize @routes.count, "Resultados" %> obtenidos
-          <% else %>
-              <%= pluralize @routes.count , "result" %> for <code><%= params[:query] %></code>
-          <% end %>
-        </p>
-        <div class="mt-4">
+        <div class="card p-4">
+          <p class= "h3">
+            <% if params[:query].blank? %>
+              <%= pluralize @routes.count, "Resultados" %> obtenidos
+            <% else %>
+                <%= pluralize @routes.count , "Resultados" %> de <code><%= params[:query] %></code>
+            <% end %>
+          </p>
+        </div>
+        <div class="">
           <div class="">
             <% @routes.each do |route| %>
               <div class="">

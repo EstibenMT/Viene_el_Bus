@@ -11,9 +11,6 @@ class RoutesController < ApplicationController
     @locations = Location.all
     marks(@locations)
   end
-  # if params[:query].present?
-  #   @routes = Routes.search_by_routes(params[:query])
-  # end
 
   def show
     marks(@stop_stations)
@@ -39,7 +36,8 @@ class RoutesController < ApplicationController
     @markers = locations.geocoded.map do |location|
       {
         latitude: location.latitude,
-        longitude: location.longitude
+        longitude: location.longitude,
+        info_window: render_to_string(partial: "shared/info_window", locals: { location: location })
       }
     end
   end

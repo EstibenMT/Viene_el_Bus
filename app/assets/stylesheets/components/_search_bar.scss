@@ -25,11 +25,9 @@
 .serch {
   width: 44px;
   height: 36px;
-  background: #203B80;
+  background: var(--yellow);
   border-radius: 0px 5px 5px 0px;
   flex: none;
-  order: 1;
-  flex-grow: 0;
   padding: 6px 8px;
 
 }

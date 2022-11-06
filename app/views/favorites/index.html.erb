@@ -1,50 +1,55 @@
+<div class="border min-vh-100" style="background-image: url(https://res.cloudinary.com/dqij49pio/image/upload/v1667677528/IMG_8692_ripdqq.jpg); background-size: cover; background-position: center; background-repeat: no-repeat">
+    <div class="d-flex justify-content-between border-bottom border-2 border-opacity-75 border-secondary bg-white p-2">
+      <p class= "btn buttons shadow-sm rounded-5 mt-2"><i class="fa-solid fa-person-shelter"></i> <%= link_to "Home", root_path, class:"text-decoration-none text-black pt-2"  %></p>
+      <h2 class="pt-2">YOUR FAVORITES</h2>
+      <i class="fa-solid fa-signs-post fs-1 pt-2"></i>
+    </div>
+  <div class="container p-3">
 
-<div class="container p-3">
-  <p class= "btn btn-dark shadow-sm rounded-5"><i class="fa-solid fa-person-shelter"></i> <%= link_to " volver al inicio", root_path, class:"text-decoration-none text-white"  %></p>
-  <div class="row p-2 mx-auto">
+      <div class="row p-2 mx-auto">
+      <% @favorites.each do |favorite| %>
 
-    <% @favorites.each do |favorite| %>
+        <div class="col-6 m-1 mx-auto">
 
-      <div class="col-6 m-1 mx-auto">
+          <div class="card rounded p-4" style="background-image: url(<%= favorite.route.image %>); background-size: cover; background-position: center; background-repeat: no-repeat">
 
-        <div class="card rounded p-4" style="background-image: url(<%= favorite.route.image %>); background-size: cover; background-position: center; background-repeat: no-repeat">
+            <div class="card-body" style="background-image: linear-gradient(rgb(236, 240, 241), rgba(236, 240, 241, 0.7))">
+                  <% route = favorite.route %>
+              <div class="d-flex justify-content-between ">
+                <p class = "fs-3"> <%= route.name %> </p>
+                <i class="fa-solid fa-heart pt-2"></i>
+              </div>
+              <p class = "fs-4 fw-bold"> <%= "$#{route.price}" %> </p>
+              <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> </p>
+              <p> <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%> </p>
 
-          <div class="card-body" style="background-image: linear-gradient(rgb(236, 240, 241), rgba(236, 240, 241, 0.7))">
-                <% route = favorite.route %>
-            <div class="d-flex justify-content-between ">
-              <p class = "fs-3"> <%= route.name %> </p>
-              <i class="fa-solid fa-heart pt-2"></i>
+
+                <% hour = Time.now.hour %>
+                <% min = Time.now.min %>
+                <% if 30 < min %>
+                  <% hour += 1 %>
+                  <% first = "#{hour}:00" %>
+                  <% second = "#{hour}:30" %>
+                <% else %>
+                  <% first = "#{hour}:30"  %>
+                  <% second = "#{hour + 1}:00" %>
+                <% end %>
+
+              <p>  <%= "The next bus will come by on: #{first}, #{second} " %> </p>
+
+              <div class="d-flex justify-content-between">
+                <%= link_to favorite_path(favorite), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do  %>
+                  <i class="fa-regular fa-trash-can text-black fs-4"></i>
+                <% end %>
+                <%= link_to "📍 This route", route_path(favorite.route_id), class:"btn buttons rounded-5 shadow" %>
+              </div>
             </div>
-            <p class = "fs-4 fw-bold"> <%= "$#{route.price}" %> </p>
-            <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> </p>
-            <p> <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%> </p>
 
-
-              <% hour = Time.now.hour %>
-              <% min = Time.now.min %>
-              <% if 30 < min %>
-                <% hour += 1 %>
-                <% first = "#{hour}:00" %>
-                <% second = "#{hour}:30" %>
-              <% else %>
-                <% first = "#{hour}:30"  %>
-                <% second = "#{hour + 1}:00" %>
-              <% end %>
-
-            <p>  <%= "The next bus will come by on: #{first}, #{second} " %> </p>
-
-            <div class="d-flex justify-content-between">
-              <%= link_to favorite_path(favorite), method: :delete, data: { turbo_method: :delete, turbo_confirm: '¿Está seguro?' } do  %>
-                <i class="fa-regular fa-trash-can text-black fs-4"></i>
-              <% end %>
-              <%= link_to "📍 Ir a esta Ruta", route_path(favorite.route_id), class:"btn btn-dark rounded-5" %>
-            </div>
           </div>
 
         </div>
 
-      </div>
-
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

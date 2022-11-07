@@ -18,3 +18,6 @@ application.register("map-home", MapHomeController)
 
 import SearchRouteController from "./search_route_controller"
 application.register("search-route", SearchRouteController)
+
+import SugestionsSearchController from "./sugestions_search_controller"
+application.register("sugestions-search", SugestionsSearchController)

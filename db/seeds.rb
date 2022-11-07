@@ -8,7 +8,7 @@
 
 require "rest-client"
 require "json"
-# require "byebug"
+require "byebug"
 
 # obtener la información de las paradas
 # la información esta guardada así para cada parada, ejemplo:
@@ -95,32 +95,139 @@ response_rutas = RestClient.get("https://services1.arcgis.com/FZVaYraI7sEGQ6rF/a
 
 result_rutas = JSON.parse(response_rutas) # Es un hash
 
-
-# Se filtra y guarda la info que necesitamos (ID_RUTA, )
+# Se filtra y guarda la info que necesitamos
 # De paradas, necesitamos ingresar al hash > features que es un array de hashes
 info_paradas = result_paradas["features"]
-
 
 # Se filtra y guarda la info que necesitamos
 # De rutas, necesitamos ingresar al hash > features que es un array de hashes
 info_rutas = result_rutas["features"]
 
 
+Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567, address: "Medellín")
+# Se crea un array de precios para darle a cada ruta un precio aleatoriamente, simulando el precio de la ruta
+prices = [2200, 2550, 1400, 2700, 2350, 2900, 3600, 3200, 8550]
+
+# Array de Imagenes, para asignar aleatoriamente a la ruta
+images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%20el%20bus/pexels-will-mu-3802736_ybfw2r.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016292/Viene%20el%20bus/muchos-2_sqfdlj.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/school_little_hsuf43.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/chiva-little_fwlpjg.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/school_little2_wzomr7.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/metroplus-little_olelkq.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/demtro-2_vmklu1.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016291/Viene%20el%20bus/principal-little_zesq2n.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667016290/Viene%20el%20bus/muchos-little_pz9kju.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/me-bus-3_f8xamj.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-6_mixjla.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/mde-bus-1_ob8hww.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-5_mvots4.jpg",
+"https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-4_mvaf5b.jpg"]
+
+# # se crean las horas en las que funciona la ruta en strings para mostrar
+start_hour_str = "5:00"
+end_hour_str = "22:00"
+
+# # representa el paso del tiempo
+# pas_time_30_min = 1800
+# array de rutas mas cortas
+shortes_routes = [372, 281, 221, 95, 415, 282, 280, 417, 223, 283, 257, 226, 43, 445, 446]
+# 758.587338344525
+# 372
+# 90114
+# 1388.98501603524
+# 281
+# 90314
+# 1471.68457415101
+# 221
+# 90307
+# 1487.49739828335
+# 95
+# 90114
+# 1542.5423678363
+# 415
+# 90313
+# 1631.49292822007
+# 282
+# 90307
+# 1633.69259890145
+# 280
+# 90313
+# 1638.10601432169
+# 417
+# 90314
+# 1704.53618471817
+# 223
+# 90308
+# 1820.41236624874
+# 283
+# 90308
+# 1834.41675043825
+# 257
+# 90065
+# 1854.87334770439
+# 226
+# 90316
+# 1874.42230269796
+# 43
+# 90065
+# 1969.35318185787
+# 445
+# 90309
+# 1980.74096334048
+# 446
+# 90310
+
+
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"])
-  puts "ruta #{ruta.id} was created"
-  ref_point = route["geometry"]["paths"]
-  ref_point.each do |array|
-    array.each do |point|
-      spot = Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
-      puts "the spot #{spot.id} was created"
-    end
+  if shortes_routes.include?(data["OBJECTID"])
+    ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour_str, end_hour: end_hour_str)
   end
+  # puts "ruta #{ruta.id} was created"
+  # ref_point = route["geometry"]["paths"]
+  # ref_point.each do |array|
+  #   array.each do |point|
+  #     Spot.create(longitude: point[0], latitude: point[1], route_id: ruta.id)
+  #     # puts "the spot #{spot.id} was created"
+  #   end
+  # end
+
+
+  # -----
+  # start_h = DateTime.parse(start_hour.sample).strftime('%I:%M %p')
+  # end_h = DateTime.parse(end_hour.sample).strftime('%I:%M %p')
+  # end_time = end_h
+  # time = start_h
+  # pas_time = time_pass.sample
+  # ------
+
+  # variables que representan las horas de inicio y final en tipo time
+  # start_h = start_hour_str.to_time # time
+  # end_h = end_hour_str.to_time # time
+
+  # # variable que se usara para crear las intancias de la clase hour
+  # hour = start_h # time
+
+  # # variables que sirven de contadores
+  # end_hour = 34 # integers
+  # count_hour = 0 # integers
+
+  # until count_hour == end_hour
+
+  #   Hour.create(hour: hour, route: ruta)
+  #   hour += pas_time_30_min
+  #   count_hour += 1
+
+  # end
 end
+
+puts "routes were created"
 
 info_paradas.each do |stop|
   id_route = stop["attributes"]["ID_RUTA"]
-  stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["geometry"]["x"], latitude: stop["geometry"]["y"], route_id: Route.find_by(id_route: id_route).id, route_code: stop["attributes"]["CODIGO_RUTA"], city: "Medellin", department: "Antioquia", country: "Colombia", address: stop["attributes"]["DIRECCION"])
-  puts "stop #{stop_st.id} was created" # with latitude #{stop_st.latitude} and longitude #{stop_st.longitude}"
+  if Route.exists?(:id_route => id_route)
+    stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["geometry"]["x"], latitude: stop["geometry"]["y"], route_id: Route.find_by(id_route: id_route).id, route_code: stop["attributes"]["CODIGO_RUTA"], city: "Medellin", department: "Antioquia", country: "Colombia", address: stop["attributes"]["DIRECCION"])
+    puts "stop #{stop_st.id} was created" # with latitude #{stop_st.latitude} and longitude #{stop_st.longitude}"
+  end
 end

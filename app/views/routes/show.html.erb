@@ -1,1 +1,58 @@
-<%= render "shared/map" %>
+<div>
+  <div data-controller = "lateral-menu" class="lateral__menu d-flex">
+    <div class="menu__side"
+      data-lateral-menu-target = "menu"
+      id="menu_side">
+
+
+      <div class="card">
+        <div class= "d-flex card-header align-items-center p-3 ">
+          <h4 class= "col-11 m-0"><strong><%= @route.name %></strong></h4>
+          <div class= "icon__favorites col-1 text-align-center">
+            <% if user_signed_in? %>
+              <% if @mark_favourite.present?%>
+                <i class="fa-solid fa-heart"></i>
+              <% else %>
+                <%= link_to route_favorites_path(@route), data: {turbo_method: :post}, class: "icon__favorites" do%>
+                  <i class="fa-regular fa-heart"></i>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to new_user_session_path, class: "icon__favorites" do%>
+                <i class="fa-regular fa-heart"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="card-header">
+          <h5 class="card-title"><strong><%= @route.price %></strong></h5>
+          <p class="m-0"><%= @route.code %></p>
+          <p class="m-0"><%= @stop_stations.length%> Estaciones</p>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% @stop_stations.each do |stop_station|%>
+          <div class="list-group-item  ">
+            <h5 class="card-title mt-3"><%= stop_station.station_name %></h5>
+            <h6 class="card-subtitle text-muted mb-3"><%= stop_station.address %></h6>
+          </div>
+        <% end %>
+      </ul>
+
+        <div>
+          <h4></h4>
+          <h4></h4>
+        </div>
+
+    </div>
+    <div class = "icon__menu" data-lateral-menu-target ="close"
+    id = "close"
+    data-action = "click->lateral-menu#openCloseMenu">
+      <i class="fa-solid fa-caret-left "></i>
+    </div>
+
+  </div>
+  <div class="">
+    <%= render "shared/map_query" %>
+  </div>
+</div>

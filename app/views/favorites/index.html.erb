@@ -20,8 +20,8 @@
                 <i class="fa-solid fa-heart pt-2 text-danger"></i>
               </div>
               <p class = "fs-4 fw-bold"> <%= "$#{route.price}" %>
-              <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> </p>
-              <p> <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%>
+              <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> <br>
+              <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%>
 
 
                 <% hour = Time.now.hour %>

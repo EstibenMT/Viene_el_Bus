@@ -2,19 +2,25 @@
   <div class="container-fluid">
 
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666403519/icono_z1lisq.png" %>
+      <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667695896/Viene%20el%20bus/icono_kblhdb_xcghxv.png" %>
     <% end %>
 
-    <div data-controller = "search-route">
+    <div data-controller = "search-route"
+    class = "">
       <%= form_with url: routes_path, method: :get, html: {class: "search_bar mb-4", data: { search_route_target: "form" }} do %>
         <%= text_field_tag :query,
                             params[:query],
-                            class: "form-control bar",
+                            class: "form-control search-input-box input",
                             placeholder: "¿Dónde quieres viajar hoy?",
                             data: {search_route_target: "input"}
                             %>
         <%= image_submit_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666413182/Viene%20el%20bus/mdi_search_igzh6c.png", class: "serch "%>
       <% end %>
+
+      <ul class="container-suggestions">
+        <li>
+        </li>
+      </ul>
     </div>
 
 

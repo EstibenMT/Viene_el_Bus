@@ -105,7 +105,6 @@ info_rutas = result_rutas["features"]
 
 
 Location.create(name: "Medellín", latitude: 6.217, longitude: -75.567, address: "Medellín")
-
 # Se crea un array de precios para darle a cada ruta un precio aleatoriamente, simulando el precio de la ruta
 prices = [2200, 2550, 1400, 2700, 2350, 2900, 3600, 3200, 8550]
 
@@ -126,15 +125,65 @@ images = ["https://res.cloudinary.com/dqij49pio/image/upload/v1667016293/Viene%2
 "https://res.cloudinary.com/dqij49pio/image/upload/v1667068563/Viene%20el%20bus/med-bus-4_mvaf5b.jpg"]
 
 # # se crean las horas en las que funciona la ruta en strings para mostrar
-# start_hour_str = "5:00"
-# end_hour_str = "22:00"
+start_hour_str = "5:00"
+end_hour_str = "22:00"
 
 # # representa el paso del tiempo
 # pas_time_30_min = 1800
+# array de rutas mas cortas
+shortes_routes = [372, 281, 221, 95, 415, 282, 280, 417, 223, 283, 257, 226, 43, 445, 446]
+# 758.587338344525
+# 372
+# 90114
+# 1388.98501603524
+# 281
+# 90314
+# 1471.68457415101
+# 221
+# 90307
+# 1487.49739828335
+# 95
+# 90114
+# 1542.5423678363
+# 415
+# 90313
+# 1631.49292822007
+# 282
+# 90307
+# 1633.69259890145
+# 280
+# 90313
+# 1638.10601432169
+# 417
+# 90314
+# 1704.53618471817
+# 223
+# 90308
+# 1820.41236624874
+# 283
+# 90308
+# 1834.41675043825
+# 257
+# 90065
+# 1854.87334770439
+# 226
+# 90316
+# 1874.42230269796
+# 43
+# 90065
+# 1969.35318185787
+# 445
+# 90309
+# 1980.74096334048
+# 446
+# 90310
+
 
 info_rutas.each do |route|
   data = route["attributes"] # hash
-  ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour_str, end_hour: end_hour_str)
+  if shortes_routes.include?(data["OBJECTID"])
+    ruta = Route.create(name: data["EMPRESA"], id_route: data["ID_RUTA"], code: data["CODIGO"], price: prices.sample, image: images.sample, start_hour: start_hour_str, end_hour: end_hour_str)
+  end
   # puts "ruta #{ruta.id} was created"
   # ref_point = route["geometry"]["paths"]
   # ref_point.each do |array|
@@ -177,6 +226,8 @@ puts "routes were created"
 
 info_paradas.each do |stop|
   id_route = stop["attributes"]["ID_RUTA"]
-  stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["geometry"]["x"], latitude: stop["geometry"]["y"], route_id: Route.find_by(id_route: id_route).id, route_code: stop["attributes"]["CODIGO_RUTA"], city: "Medellin", department: "Antioquia", country: "Colombia", address: stop["attributes"]["DIRECCION"])
-  puts "stop #{stop_st.id} was created" # with latitude #{stop_st.latitude} and longitude #{stop_st.longitude}"
+  if Route.exists?(:id_route => id_route)
+    stop_st = StopStation.create(station_name: stop["attributes"]["NOMBRE_RUTA"], longitude: stop["geometry"]["x"], latitude: stop["geometry"]["y"], route_id: Route.find_by(id_route: id_route).id, route_code: stop["attributes"]["CODIGO_RUTA"], city: "Medellin", department: "Antioquia", country: "Colombia", address: stop["attributes"]["DIRECCION"])
+    puts "stop #{stop_st.id} was created" # with latitude #{stop_st.latitude} and longitude #{stop_st.longitude}"
+  end
 end

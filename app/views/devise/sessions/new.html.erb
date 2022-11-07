@@ -1,20 +1,26 @@
-<h2>Log in</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class= "d-flex justify-content-center login min-vh-100">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start" style= "width: 50%" >
+    <div class="card-header text-center">
+      <h1 class= "fw-bold"> JOIN US ON THE BUS! </h1>
+    </div>
+    <div class="card-body text-center fw-bold">
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>
+                    <div class="form-inputs">
+                      <%= f.input :email,
+                                  required: false,
+                                  autofocus: true,
+                                  input_html: { autocomplete: "email" } %>
+                      <%= f.input :password,
+                                  required: false,
+                                  input_html: { autocomplete: "current-password" } %>
+                      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </div>
+    <div class="text-center bg-transparent border-none">
+      <div class="form-actions">
+        <%= f.button :submit, "Log in", class:"bnt buttons" %>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>

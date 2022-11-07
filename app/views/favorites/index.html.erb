@@ -4,24 +4,24 @@
       <h2 class="pt-2">YOUR FAVORITES</h2>
       <i class="fa-solid fa-signs-post fs-1 pt-2"></i>
     </div>
-  <div class="container p-3">
+  <div class="container p-2">
 
-      <div class="row p-2 mx-auto">
+      <div class="row p-1 mx-auto">
       <% @favorites.each do |favorite| %>
 
         <div class="col-12 col-md-6 col-lg-4 m-1 mx-auto">
 
-          <div class="card rounded p-4" style="background-image: url(<%= favorite.route.image %>); background-size: cover; background-position: center; background-repeat: no-repeat">
+          <div class="card rounded rounded-4 p-4" style="background-image: url(<%= favorite.route.image %>); background-size: cover; background-position: center; background-repeat: no-repeat">
 
-            <div class="card-body" style="background-image: linear-gradient(rgb(236, 240, 241), rgba(236, 240, 241, 0.7))">
+            <div class="card-body rounded rounded-4" style="background-image: linear-gradient(rgb(236, 240, 241), rgba(236, 240, 241, 0.7))">
                   <% route = favorite.route %>
               <div class="d-flex justify-content-between ">
                 <p class = "fs-3"> <%= route.name %> </p>
-                <i class="fa-solid fa-heart pt-2"></i>
+                <i class="fa-solid fa-heart pt-2 text-danger"></i>
               </div>
-              <p class = "fs-4 fw-bold"> <%= "$#{route.price}" %> </p>
-              <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> </p>
-              <p> <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%> </p>
+              <p class = "fs-4 fw-bold"> <%= "$#{route.price}" %>
+              <p> <i class="fa-solid fa-bus-simple"></i> <%= route.code %> <br>
+              <i class="fa-regular fa-clock"></i> <%= " Active between: #{route.start_hour} - #{route.end_hour}"%>
 
 
                 <% hour = Time.now.hour %>
@@ -35,7 +35,7 @@
                   <% second = "#{hour + 1}:00" %>
                 <% end %>
 
-              <p>  <%= "The next bus will come by on: #{first}, #{second} " %> </p>
+               <%= "The next bus will come by on: #{first}, #{second} " %> </p>
 
               <div class="d-flex justify-content-between">
                 <%= link_to favorite_path(favorite), method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do  %>

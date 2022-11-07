@@ -1,3 +1,6 @@
+<div class= "d-flex justify-content-center login min-vh-100 rounded">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-none" style= "width: 50%" >
+    <div class="card-header text-center fw-bold">
 <h2>Sign up</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: :false }) do |f| %>
@@ -18,8 +21,9 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+    <%= f.button :submit, "Sign up", class:"bnt buttons"%>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+ </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>

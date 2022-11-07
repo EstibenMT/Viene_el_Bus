@@ -28,8 +28,8 @@ if (window.innerWidth < 760){
 }
 
 //Haciendo el menú responsive(adaptable)
-
-window.addEventListener("resize", function(){
+if (side_menu != null) {
+  window.addEventListener("resize", function(){
 
     if (window.innerWidth > 760){
 
@@ -44,3 +44,4 @@ window.addEventListener("resize", function(){
     }
 
 });
+}

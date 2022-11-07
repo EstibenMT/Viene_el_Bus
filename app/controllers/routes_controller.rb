@@ -2,14 +2,16 @@ class RoutesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :set_route, only: [:show]
   before_action :set_stop_station, only: [:show]
+  before_action :set_array_routes, only: [:index, :show]
   def index
+
     if params[:query].present?
       @routes = Route.search_by_routes(params[:query])
     else
       @routes = []
     end
     @locations = Location.all
-    marks(@locations)
+    not_marks(@locations)
   end
 
   def show
@@ -30,6 +32,19 @@ class RoutesController < ApplicationController
 
   def set_stop_station
     @stop_stations = StopStation.search_by_routes(@route.id)
+  end
+
+  def set_array_routes
+    @array_routes = Route.all
+  end
+
+  def not_marks(locations)
+    @markers = locations.geocoded.map do |location|
+      {
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }
+    end
   end
 
   def marks(locations)

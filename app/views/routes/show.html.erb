@@ -35,6 +35,19 @@
           <div class="list-group-item  ">
             <h5 class="card-title mt-3"><%= stop_station.station_name %></h5>
             <h6 class="card-subtitle text-muted mb-3"><%= stop_station.address %></h6>
+            <% hour = Time.now.hour %>
+            <% min = Time.now.min %>
+            <% plus_min_array = [3, 4, 5] %>
+            <% plus_min = plus_min_array.sample %>
+            <% sum = min + plus_min %>
+            <% if 60 <= sum %>
+              <% hour += 1 %>
+              <% first = "#{hour}:0#{sum-60}" %>
+            <% else %>
+              <% first = "#{hour}:#{sum}"  %>
+            <% end %>
+
+            <h6> <i class="fa-solid fa-person-shelter"></i> <%= "El siguiente bus estara aquí a las: #{first}" %> </h6>
           </div>
         <% end %>
       </ul>

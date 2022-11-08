@@ -3,18 +3,5 @@
   <p><%= location.address %></p>
 <% else %>
   <h5> <%= location.station_name %></h5>
-
-  <% hour = Time.now.hour %>
-  <% min = Time.now.min %>
-  <% plus_min = [3, 4, 5, 30] %>
-  <% if 30 < min %>
-    <% hour += 1 %>
-    <% first = "#{hour}:00" %>
-    <% second = "#{hour}:30" %>
-  <% else %>
-    <% first = "#{hour}:30"  %>
-    <% second = "#{hour + 1}:00" %>
-  <% end %>
-
   <p><%= location.address %></p>
 <% end %>

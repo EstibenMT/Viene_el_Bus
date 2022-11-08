@@ -1,9 +1,9 @@
-<div class= "d-flex justify-content-center login min-vh-100">
-  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start" style= "width: 50%" >
-    <div class="card-header text-center">
-      <h1 class= "fw-bold"> JOIN US ON THE BUS! </h1>
+<div class= "d-flex justify-content-center login min-vh-100 border-0">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0 rounded-3" style= "width: 50%" >
+    <div class="card-header text-center border-0 rounded-3 fondo">
+      <h1 class= "fw-bold fondo"> JOIN US ON THE BUS! </h1>
     </div>
-    <div class="card-body text-center fw-bold">
+    <div class="card-body text-center fw-bold border-0 rounded-3 bg-transparent">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>
                     <div class="form-inputs">
                       <%= f.input :email,
@@ -15,7 +15,7 @@
                                   input_html: { autocomplete: "current-password" } %>
                       <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
     </div>
-    <div class="text-center bg-transparent border-none">
+    <div class="text-center bg-transparent border-0">
       <div class="form-actions">
         <%= f.button :submit, "Log in", class:"bnt buttons" %>
       </div>

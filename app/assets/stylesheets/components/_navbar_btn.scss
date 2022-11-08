@@ -1,14 +1,14 @@
-.navbar-btn-white {
+.navbar-btn-yellow {
   position: relative;
   display: inline-block;
   text-align: center;
-  border: 2px solid var(--white);
+  border: 2px solid var(--yellow);
   padding: 8px 16px;
   height: 44px;
-  color: var(--white);
+  color: var(--yellow);
   font-size: 700;
   text-decoration: none;
-  background-color: var(--white);
+  background-color: var(--yellow);
   color: var(--black);
   border-radius: 5px;
   margin-left: 10px;
@@ -18,19 +18,19 @@
 }
 
 
-.navbar-btn-white.br{
+.navbar-btn-yellow.br{
   background-color: transparent;
-  color: var(--white);
+  color: var(--yellow);
 }
 
 
-.navbar-btn-white:hover{
-  color: var(--white);
+.navbar-btn-yellow:hover{
+  color: var(--yellow);
   background-color: transparent;
 }
 
 
-.navbar-btn-white.br:hover{
+.navbar-btn-yellow.br:hover{
   color: var(--black);
-  background-color: var(--white);
+  background-color: var(--yellow);
 }

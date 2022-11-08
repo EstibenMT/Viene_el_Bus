@@ -2,19 +2,25 @@
   <div class="container-fluid">
 
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666403519/icono_z1lisq.png" %>
+      <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667695896/Viene%20el%20bus/icono_kblhdb_xcghxv.png" %>
     <% end %>
 
-    <div data-controller = "search-route">
+    <div data-controller = "search-route"
+    class = "">
       <%= form_with url: routes_path, method: :get, html: {class: "search_bar mb-4", data: { search_route_target: "form" }} do %>
         <%= text_field_tag :query,
                             params[:query],
-                            class: "form-control bar",
+                            class: "form-control search-input-box input",
                             placeholder: "¿Dónde quieres viajar hoy?",
                             data: {search_route_target: "input"}
                             %>
         <%= image_submit_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666413182/Viene%20el%20bus/mdi_search_igzh6c.png", class: "serch "%>
       <% end %>
+
+      <ul class="container-suggestions">
+        <li>
+        </li>
+      </ul>
     </div>
 
 
@@ -28,26 +34,26 @@
         <% if user_signed_in? %>
           <%= link_to root_path do %>
             <li class="nav-item active">
-              <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666413230/Viene%20el%20bus/Home_p5mfzg.png", class: "avatar icons-small dropdown-toggle"%>
+              <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667688487/Viene%20el%20bus/Home_jum3xt.png", class: "avatar icons-small dropdown-toggle"%>
             </li>
           <% end %>
 
           <li class="nav-item">
-            <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666411601/Viene%20el%20bus/Camapa_de_notificaciones_ad158f.png", class: "avatar icons-small dropdown-toggle" %>
+            <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667688487/Viene%20el%20bus/Camapa_de_notificaciones_wompaf.png", class: "avatar icons-small dropdown-toggle" %>
           </li>
           <li class="nav-item dropdown">
-            <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666411601/Viene%20el%20bus/Account_kjgqxf.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667688487/Viene%20el%20bus/Account_eoaxbm.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Mi perfil", user_path(current_user), class: "dropdown-item" %>
-              <%= link_to "Mis rutas", "#", class: "dropdown-item" %>
+              <%= link_to "Mis rutas", favorites_path , class: "dropdown-item" %>
               <%= link_to "Cerrar sesión", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Crear cuenta", new_user_registration_path, class: "navbar-btn-white"%>
+            <%= link_to "Crear cuenta", new_user_registration_path, class: "navbar-btn-yellow"%>
           </li>
-            <%= link_to "Iniciar sesión", new_user_session_path, class: "navbar-btn-white br"%>
+            <%= link_to "Iniciar sesión", new_user_session_path, class: "navbar-btn-yellow br"%>
           </li>
 
         <% end %>

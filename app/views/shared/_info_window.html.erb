@@ -1,2 +1,8 @@
-<h2><%= stop_station.station_name %></h2>
-<p><%= stop_station.address %></p>
+<% if location.instance_of? Location %>
+  <h5> <%= location.name %></h5>
+  <p><%= location.address %></p>
+<% else %>
+  <h5> <%= location.station_name %></h5>
+  <p><%= location.address %></p>
+<% end %>
+

@@ -1,0 +1,51 @@
+.box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat
+
+  p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+  h4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-decoration: none;
+    overflow: hidden;
+  }
+
+}
+
+.box:hover{
+  color: var(--gray);
+}
+
+.box-car{
+  background-image: linear-gradient(rgb(236, 240, 241), rgba(236, 240, 241, 0.7))
+}
+
+.car-link {
+  text-decoration: none !important;
+  color: black;
+}
+
+.container-image {
+  height: 300px;
+  width: 100%;
+
+  img {
+    height: 100%;
+  }
+}

@@ -1,7 +1,7 @@
-<div class="card box p-2">
-  <div class="card-body m-2">
-    <h4 class="text-break card-title h-30"><%= route.name %></h4>
-      <p class="text-break h-30"><%= route.price %></p>
-      <p class="text-break h-10"><%= route.code %></p>
+<div class="card box" style="background-image: url(<%= route.image %>)">
+  <div class="card-body box-car">
+    <h4 class="text-break card-title"><%= route.name %></h4>
+      <p><%= route.price %></p>
+      <p><%= route.code %></p>
   </div>
 </div>

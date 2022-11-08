@@ -1,0 +1,24 @@
+<div class= "d-flex justify-content-center login min-vh-100 border-0 rounded">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0 rounded-3" style= "width: 50%" >
+    <div class="card-header text-center border-0 rounded-3 fondo">
+      <h1 class= "fw-bold border-0 fondo"> ¡Todo listo para tu recorrido! </h1>
+    </div >
+     <div class="perfilusuario border-0 rounded-3 bg-transparent">
+     <div class= "border-0">
+      <p class="fw-bold fs-2 d-flex justify-content-center">Hey You! <%= @user.email %></p>
+    </div>
+  </div>
+  <div>
+    <div class= "d-flex justify-content-between align-self-start border-0 rounded">
+      <div>
+       <p class="btn buttons justify-content-center"> <%= link_to "FAVORITOS", favorites_path, class: "text-decoration-none text-dark" %> </p>
+
+      </div>
+      <div>
+      <p class="btn buttons justify-content-center"> <%= link_to "HOME", root_path, class: "text-decoration-none text-dark" %> </p>
+      </div>
+    </div>
+    <div class= "d-flex justify-content-center align-self-start">
+    <p class="btn buttons justify-content-center"> ¿Dudas? Contáctanos </p>
+  </div>
+</div>

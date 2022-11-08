@@ -1,9 +1,9 @@
 <div class= "d-flex justify-content-center login min-vh-100 border-0">
-  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0" style= "width: 50%" >
-    <div class="card-header text-center border-0">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0 rounded-3" style= "width: 50%" >
+    <div class="card-header text-center border-0 rounded-3 fondo">
       <h1 class= "fw-bold fondo"> JOIN US ON THE BUS! </h1>
     </div>
-    <div class="card-body text-center fw-bold border-0">
+    <div class="card-body text-center fw-bold border-0 rounded-3 bg-transparent">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: :false }) do |f| %>
                     <div class="form-inputs">
                       <%= f.input :email,

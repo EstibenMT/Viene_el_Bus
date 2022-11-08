@@ -1,0 +1,21 @@
+<div class= "d-flex justify-content-center login min-vh-100 border-0 rounded">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0 rounded" style= "width: 50%" >
+    <div class="card-header text-center border-0 rounded fondo">
+      <h1 class= "fw-bold border-0 fondo"> ¡Todo listo para tu recorrido! </h1>
+    </div >
+     <div class="perfilusuario border-0">
+     <div class= "border-0">
+      <p class="fw-bold fs-2 d-flex justify-content-center">Hey You! <%= @user.email %></p>
+    </div>
+  </div>
+  <div>
+    <div class= "row">
+      <div>
+       <p class="btn buttons justify-content-center fw-bold"> <%= link_to "FAVORITOS", favorites_path %> </p>
+
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>

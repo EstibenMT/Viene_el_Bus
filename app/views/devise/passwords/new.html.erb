@@ -1,7 +1,7 @@
-<div class= "d-flex justify-content-center login min-vh-100 rounded">
-  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-none" style= "width: 50%" >
-    <div class="card-header text-center fw-bold">
-      <h2>Forgot your password?</h2>
+<div class= "d-flex justify-content-center login min-vh-100 border-0 rounded">
+  <div class="card d-flex justify-content-center mt-5 p-2 align-self-start border-0" style= "width: 50%" >
+    <div class="card-header text-center fw-bold fondo border-0">
+      <h2 class= "fw-bold">FORGOT YOUR PASSWORD?</h2>
     </div>
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= f.error_notification %>
@@ -13,7 +13,7 @@
                 input_html: { autocomplete: "email" } %>
   </div>
 
-  <div class="text-center bg-transparent border-none fw-bold d-flex justify-content-center">
+  <div class="text-center bg-transparent border-none fw-bold d-flex justify-content-center border-0">
     <%= f.button :submit, "Send me the instructions" , class:"btn buttons"%>
   </div>
 </div>

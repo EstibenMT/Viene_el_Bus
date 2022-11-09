@@ -3,6 +3,8 @@ class RoutesController < ApplicationController
   before_action :set_route, only: [:show]
   before_action :set_stop_station, only: [:show]
   before_action :set_array_routes, only: [:index, :show]
+  before_action :set_spots, only: [:show]
+
   def index
 
     if params[:query].present?
@@ -16,6 +18,7 @@ class RoutesController < ApplicationController
 
   def show
     marks(@stop_stations)
+    line_spots(@spots)
     if user_signed_in?
       @mark_favourite = Favorite.where(user_id: current_user.id, route_id: @route.id)
     else
@@ -34,6 +37,10 @@ class RoutesController < ApplicationController
     @stop_stations = StopStation.search_by_routes(@route.id)
   end
 
+  def set_spots
+    @spots = Spot.search_by_spots(@route.id)
+  end
+
   def set_array_routes
     @array_routes = Route.all
   end
@@ -42,7 +49,7 @@ class RoutesController < ApplicationController
     @markers = locations.geocoded.map do |location|
       {
         latitude: location.latitude,
-        longitude: location.longitude,
+        longitude: location.longitude
       }
     end
   end
@@ -57,13 +64,9 @@ class RoutesController < ApplicationController
     end
   end
 
-  def query_routes(routes)
-    @query_routes = routes.map do |route|
-      {
-        name: route.name,
-        code: route.code,
-        price: route.price
-      }
+  def line_spots(spots)
+    @lines = spots.geocoded.map do |spot|
+      [spot.longitude, spot.latitude]
     end
   end
 end

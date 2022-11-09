@@ -10,6 +10,9 @@ application.register("hello", HelloController)
 import LateralMenuController from "./lateral_menu_controller"
 application.register("lateral-menu", LateralMenuController)
 
+import LinesMapController from "./lines_map_controller"
+application.register("lines-map", LinesMapController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 

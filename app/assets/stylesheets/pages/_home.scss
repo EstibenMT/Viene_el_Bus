@@ -12,10 +12,6 @@
 }
 
 .carousel{
-  width: 50%;
-  position: absolute;
-  top: 5%;
-  left: 48%;
   border-radius: 15px;
 }
 
@@ -25,9 +21,6 @@
 }
 
 .home-card{
-  width: 70%;
-  left: 2%;
-  top: 5%;
   border-radius: 15px;
   opacity: .9;
 }
@@ -38,14 +31,16 @@
 }
 
 .logow{
-  top: 70%;
-  left: 80%;
-  position: absolute;
+  background-image: url();
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 
 .logof{
-  top: 82.5%;
-  left: 60%;
-  position: absolute;
+  background-image: url();
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

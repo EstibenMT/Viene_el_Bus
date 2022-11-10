@@ -1,46 +1,25 @@
 // Specific CSS for your home-page
 @import "../components/map";
 
-.home-fondo{
+body{
   background-image: url("https://res.cloudinary.com/dqij49pio/image/upload/v1667677528/IMG_8692_ripdqq.jpg");
   background-size: cover;
   background-repeat: none;
-
 }
 
-.carousel{
-  border-radius: 15px;
+#holdf{
+  margin-top: 200px;
 }
 
-.d-block{
-  border-radius: 15px;
-  position: relative;
+#holdf2{
+  margin-left: 200px;
 }
 
-.w50{
-  width: 50%;
+#holdf3{
+  border-bottom: 2cm;
+  margin-top: 40px;
 }
 
-.w30{
-  width: 30%;
-}
-
-.w40{
-  width: 40%;
-}
-
-.home-card{
-  border-radius: 15px;
-  height: 90%;
-  opacity: .9;
-}
-
-.home-btn{
- color: black;
- border-radius: 15px;
-}
-
-
-.height-logos{
-  height: 60px;
+.logof{
+  width: 250px;
 }

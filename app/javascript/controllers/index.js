@@ -7,15 +7,11 @@ import { application } from "./application"
 import LateralMenuController from "./lateral_menu_controller"
 application.register("lateral-menu", LateralMenuController)
 
-
 import MapController from "./map_controller"
 application.register("map", MapController)
 
 import MapHomeController from "./map_home_controller"
 application.register("map-home", MapHomeController)
-
-import SearchRouteController from "./search_route_controller"
-application.register("search-route", SearchRouteController)
 
 import SuggestionsSearchController from "./suggestions_search_controller"
 application.register("suggestions-search", SuggestionsSearchController)

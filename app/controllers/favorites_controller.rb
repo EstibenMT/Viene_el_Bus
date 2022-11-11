@@ -2,13 +2,15 @@ class FavoritesController < ApplicationController
   before_action :set_favorite, only: [:destroy, :show]
   before_action :set_user, only: [:index, :create]
   before_action :set_route, only: [:indedx, :create]
-
+  before_action :set_array_routes, only: [:index, :show ]
   def index
     @favorites = Favorite.all
+    sugestions(@array_routes)
   end
 
   def show
     @favorite = Favorite.find(params[:id])
+    sugestions(@array_routes)
   end
 
   def create
@@ -45,5 +47,15 @@ class FavoritesController < ApplicationController
 
   def set_route
     @route = Route.find(params[:route_id])
+  end
+
+  def set_array_routes
+    @array_routes = Route.all
+  end
+
+  def sugestions(array_routes)
+    @sugestions = array_routes.map do |route|
+      route.name
+    end
   end
 end

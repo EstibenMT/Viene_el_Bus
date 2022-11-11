@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def home
     @locations = Location.all
     marks(@locations)
-    serch_routes_all(@array_routes)
+    sugestions(@array_routes)
   end
 
   private
@@ -22,11 +22,9 @@ class PagesController < ApplicationController
     end
   end
 
-  def serch_routes_all(array_routes)
-    @suggestions = array_routes.map do |route|
-      {
-        name: route.name
-      }
+  def sugestions(array_routes)
+    @sugestions = array_routes.map do |route|
+      route.name
     end
   end
 end

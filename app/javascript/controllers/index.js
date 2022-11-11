@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
-
 import LateralMenuController from "./lateral_menu_controller"
 application.register("lateral-menu", LateralMenuController)
 
@@ -22,5 +19,5 @@ application.register("map-home", MapHomeController)
 import SearchRouteController from "./search_route_controller"
 application.register("search-route", SearchRouteController)
 
-import SugestionsSearchController from "./sugestions_search_controller"
-application.register("sugestions-search", SugestionsSearchController)
+import SuggestionsSearchController from "./suggestions_search_controller"
+application.register("suggestions-search", SuggestionsSearchController)

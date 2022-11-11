@@ -4,6 +4,8 @@ class RoutesController < ApplicationController
   before_action :set_stop_station, only: [:show]
   before_action :set_array_routes, only: [:index, :show]
   before_action :set_spots, only: [:show]
+  before_action :set_array_routes, only: [:show, :index]
+
 
   def index
 
@@ -14,16 +16,18 @@ class RoutesController < ApplicationController
     end
     @locations = Location.all
     not_marks(@locations)
+    sugestions(@array_routes)
   end
 
   def show
     marks(@stop_stations)
     line_spots(@spots)
+    sugestions(@array_routes)
     if user_signed_in?
       @mark_favourite = Favorite.where(user_id: current_user.id, route_id: @route.id)
     else
-      @mark_favourites = []
-      @mark_favourites << Favorite.new
+      @mark_favourite = []
+      @mark_favourite << Favorite.new
     end
   end
 
@@ -67,6 +71,12 @@ class RoutesController < ApplicationController
   def line_spots(spots)
     @lines = spots.geocoded.map do |spot|
       [spot.longitude, spot.latitude]
+    end
+  end
+
+  def sugestions(array_routes)
+    @sugestions = array_routes.map do |route|
+      route.name
     end
   end
 end

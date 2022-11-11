@@ -5,19 +5,27 @@
       <%= image_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1667695896/Viene%20el%20bus/icono_kblhdb_xcghxv.png" %>
     <% end %>
 
-    <div data-controller = "search-route"
-    class = "">
-      <%= form_with url: routes_path, method: :get, html: {class: "search_bar mb-4", data: { search_route_target: "form" }} do %>
+    <div data-controller = "suggestions-search"
+    data-suggestions-search-suggestions-value = "<%= @sugestions %>"
+    >
+      <%= form_with url: routes_path, method: :get, html: {class: "search_bar mb-4", data: { search_route_target: "form" }, autocomplete: "off"} do %>
         <%= text_field_tag :query,
                             params[:query],
-                            class: "form-control search-input-box input",
+                            class: "bar",
                             placeholder: "¿Dónde quieres viajar hoy?",
-                            data: {search_route_target: "input"}
+                            data: {suggestions_search_target: "input"}
                             %>
         <%= image_submit_tag "https://res.cloudinary.com/dqij49pio/image/upload/v1666413182/Viene%20el%20bus/mdi_search_igzh6c.png", class: "serch "%>
       <% end %>
 
+      <div data-suggestions-search-target = "content"
+      class = "search-input-box">
+        <ul data-suggestions-search-target = "results"
+        class = "container-suggestions">
+        </ul>
+      </div>
     </div>
+
 
 
 

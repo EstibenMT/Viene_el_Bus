@@ -1,2 +1,0 @@
-class StopTimesController < ApplicationController
-end
